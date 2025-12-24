@@ -68,6 +68,12 @@ canvas {
 
 <body>
 
+<!-- 背景音乐 -->
+<audio id="bgm" loop>
+  <source src="https://www.mfiles.co.uk/mp3-downloads/christmas-song.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
 <div id="box">
     <h2 id="question"></h2>
     <div id="buttons"></div>
@@ -78,12 +84,17 @@ canvas {
 
 <script>
 const questions = [
-    "你今天是不是特别可爱？🤪",
+    "准备好了吗？",
+    "将你的音量调大一点点🤏",
+    "来咯来咯，问题来咯😏"
     "你是不是偷偷照过镜子？😏",
-    "你是不是全世界最会笑的人？😂",
-    "你是不是小傻瓜？😏",
-    "你是不是已经猜到结局了？😎",
-    "魔镜魔镜🪞，谁是这个世界上最美丽的女人？？？😈"
+    "你今天是不是特别美丽？🤪",
+    "你今天是不是要加班？😂",
+    "好了，言归正传，来咯来咯～",
+    "准备好了吗？",
+    "准备好了吗？",
+    "最后一个问题！很关键！"
+    "魔镜魔镜，谁是这个世界上最美丽的女人？🤪"
 ];
 
 let index = 0;
@@ -91,14 +102,15 @@ let index = 0;
 const questionEl = document.getElementById("question");
 const buttonsEl = document.getElementById("buttons");
 const treeEl = document.getElementById("tree");
+const music = document.getElementById("bgm");
 
 function render() {
     questionEl.innerText = questions[index];
     buttonsEl.innerHTML = "";
 
     if (index < questions.length - 1) {
-        addButton("是的", next);
-        addButton("不是的", () => {});
+        addButton("是", next);
+        addButton("否", () => {});
     } else {
         addButton("晓晶", showFinal);
         addButton("薛晓晶🤪", showFinal);
@@ -119,15 +131,19 @@ function next() {
 }
 
 function showFinal() {
-    questionEl.innerText = "哈哈哈恭喜你，答对啦！ 圣诞节快乐🎉";
+    questionEl.innerText = "答对啦！！圣诞节快乐🎉";
     buttonsEl.innerHTML = "";
     treeEl.style.display = "block";
+
+    // 播放圣诞节音乐
+    music.play();
+
     startFireworks();
 }
 
 render();
 
-/* ===== 烟花 ===== */
+/* ===== 烟花效果 ===== */
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
