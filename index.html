@@ -107,6 +107,7 @@ function render() {
         addButton("是", next);
         addButton("否", () => {});
     } else {
+        // 第6题，两个按钮都绑定 showFinal
         addButton("晓晶", showFinal);
         addButton("晓晶", showFinal);
     }
@@ -130,7 +131,7 @@ function showFinal() {
     buttonsEl.innerHTML = "";
     treeEl.style.display = "block";
 
-    // 播放圣诞节音乐
+    // 播放音乐
     music.play().catch(() => {
         alert("请点击屏幕播放音乐🎵");
     });
