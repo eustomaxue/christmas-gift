@@ -81,9 +81,9 @@ const questions = [
     "你今天是不是特别可爱？🤪",
     "你是不是偷偷照过镜子？😏",
     "你是不是全世界最会笑的人？😂",
-    "你是不是走到哪都很亮眼？✨",
+    "你是不是小傻瓜？😏",
     "你是不是已经猜到结局了？😎",
-    "魔镜魔镜，谁是这个世界上最美丽的女人？"
+    "魔镜魔镜🪞，谁是这个世界上最美丽的女人？？？😈"
 ];
 
 let index = 0;
@@ -97,11 +97,11 @@ function render() {
     buttonsEl.innerHTML = "";
 
     if (index < questions.length - 1) {
-        addButton("是", next);
-        addButton("否", () => {});
+        addButton("是的", next);
+        addButton("不是的", () => {});
     } else {
         addButton("晓晶", showFinal);
-        addButton("晓晶", showFinal);
+        addButton("薛晓晶🤪", showFinal);
     }
 }
 
@@ -119,7 +119,7 @@ function next() {
 }
 
 function showFinal() {
-    questionEl.innerText = "答案只有一个 🎄";
+    questionEl.innerText = "真相只有一个！ 圣诞节快乐🎉";
     buttonsEl.innerHTML = "";
     treeEl.style.display = "block";
     startFireworks();
