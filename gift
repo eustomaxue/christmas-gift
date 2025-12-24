@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>圣诞快乐 🎄</title>
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Microsoft YaHei", Arial;
+    overflow: hidden;
+    color: #fff;
+}
+
+#box {
+    text-align: center;
+    z-index: 2;
+}
+
+button {
+    padding: 10px 25px;
+    margin: 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.yes {
+    background: #ff5e5e;
+    color: #fff;
+}
+
+.no {
+    background: #ccc;
+    color: #333;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+</style>
+</head>
+
+<body>
+<div id="box"></div>
+<canvas id="fireworks"></canvas>
+
+<script>
+const questions = [
+    "你今天是不是特别可爱？😆",
+    "你是不是偷偷照镜子了？",
+    "你觉得自己好看吗？",
+    "如果满分是 10 分，你给自己打 11 分吗？",
+    "认真回答：你是不是仙女下凡？🧚‍♀️"
+];
+
+let index = 0;
+
+function showQuestion() {
+    if (index < questions.length) {
+        box.innerHTML = `
+            <h2>${questions[index]}</h2>
+            <button class="yes" onclick="next()">是</button>
+            <button class="no">否</button>
+        `;
+    } else {
+        showFinalQuestion();
+    }
+}
+
+function next() {
+    index++;
+    showQuestion();
+}
+
+function showFinalQuestion() {
+    box.innerHTML = `
+        <h2>🪞 魔镜魔镜，谁是这个世界上最美丽的女人？</h2>
+        <button class="yes" onclick="showTree()">晓晶</button>
+        <button class="yes" onclick="showTree()">晓晶</button>
+    `;
+}
+
+function showTree() {
+    box.innerHTML = `
+        <h1>🎄 圣诞快乐 🎄</h1>
+        <pre style="font-size:20px; line-height:1.2">
+            ★
+           ***
+          *****
+         *******
+        *********
+            |
+        </pre>
+        <h2>✨ 最美的就是你 ✨</h2>
+    `;
+    startFireworks();
+}
+
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let fireworks = [];
+
+function Firework() {
+    this.x = Math.random() * canvas.width;
+    this.y = canvas.height;
+    this.radius = Math.random() * 3 + 2;
+    this.color = `hsl(${Math.random() * 360},100%,60%)`;
+    this.vx = (Math.random() - 0.5) * 4;
+    this.vy = Math.random() * -8 - 6;
+}
+
+function startFireworks() {
+    setInterval(() => {
+        fireworks.push(new Firework());
+    }, 200);
+
+    requestAnimationFrame(update);
+}
+
+function update() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    fireworks.forEach((f, i) => {
+        f.x += f.vx;
+        f.y += f.vy;
+        f.vy += 0.1;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+        ctx.fillStyle = f.color;
+        ctx.fill();
+        if (f.y > canvas.height) fireworks.splice(i, 1);
+    });
+    requestAnimationFrame(update);
+}
+
+showQuestion();
+</script>
+</body>
+</html>
